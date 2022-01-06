@@ -1,0 +1,8 @@
+# Define the source link and destination path
+$source = 'https://download.teamviewer.com/download/version_13x/TeamViewer_Host_Setup.exe'
+$destination = 'c:\Users\TeamViewer_Host_Setup.exe'
+# Create the new WebClient
+$webClient = [System.Net.WebClient]::new()
+# Download the file
+$webClient.DownloadFile($source, $destination)
+C:\Users\TeamViewer_Host_Setup.exe /S
