@@ -1,0 +1,3 @@
+Taskkill /F /IM TeamViewer.exe
+"C:\Program Files (x86)\TeamViewer\uninstall.exe" /S
+TeamViewer_Host_Setup.exe /S
