@@ -1,0 +1,32 @@
+Function Get-PfxFile(){
+    [System.Reflection.Assembly]::LoadWithPartialName(“System.windows.forms”) | Out-Null
+    $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{
+        InitialDirectory = [Environment]::GetFolderPath('Desktop')
+        Filter = 'Personal Information Exchange (*.pfx)|*.pfx'
+    }
+    $FileBrowser.ShowDialog() | Out-Null
+    $FileBrowser.FileName
+}
+$Path = Get-PfxFile
+$Password = Read-Host "Enter your PFX file password"
+$Pass = ConvertTo-SecureString $Password -AsPlainText -Force
+$ConnectionBroker = Read-Host "Enter Connection Broker FQDN"
+Write-Host
+Write-Host "1. RDRedirector"
+Write-Host "2. RDGateway"
+Write-Host "3. RDWebAccess"
+Write-Host "4. RDPublishing"
+Write-Host "5. Configure All"
+Do { $choice = Read-Host "Select RDS Role you want to configure (1-5)" }while ((1..5) -notcontains $choice)
+switch ($choice){
+    "1" {Set-RDCertificate -Role RDRedirector -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path; break}
+    "2" {Set-RDCertificate -Role RDGateway -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path; break}
+    "3" {Set-RDCertificate -Role RDWebAccess -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path; break}
+    "4" {Set-RDCertificate -Role RDPublishing -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path; break}
+    "5" {
+        Set-RDCertificate -Role RDRedirector -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path
+        Set-RDCertificate -Role RDGateway -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path
+        Set-RDCertificate -Role RDWebAccess -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path
+        Set-RDCertificate -Role RDPublishing -Password $Pass -ConnectionBroker $ConnectionBroker -ImportPath $Path
+    }
+}
