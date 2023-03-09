@@ -1,0 +1,3 @@
+Import-Module
+ADSync(Get-ADSyncGlobalSettings).Parameters | select Name,Value 
+Get-ADSyncAutoUpgrade -Detail
