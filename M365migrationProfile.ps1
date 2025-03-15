@@ -1,4 +1,4 @@
-$confirm = Read-Host "Upozorneni: Skript smaze vsechny ulozene prihlaseni do M365 aktualne prihlaseneho uzivatele. Vytvori novy Outlook profil O365 a nastavi jej jako vychozi. Spusti Outlook. Spustit? (y/n)"
+$confirm = Read-Host "Upozorneni: Skript smaze vsechny ulozene prihlaseni do M365 aktualne prihlaseneho uzivatele. Vytvori novy Outlook profil O365 a nastavi jej jako vychozi. Otevre Outlook. Spustit? (y/n)"
 if ($confirm -notmatch "^[Yy]$") { exit }
 Stop-Process -Name "outlook" -Force -ErrorAction SilentlyContinue
 Stop-Process -Name "ms-teams" -Force -ErrorAction SilentlyContinue
