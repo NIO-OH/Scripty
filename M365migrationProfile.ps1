@@ -1,4 +1,3 @@
-cls
 $confirm = Read-Host "Upozorneni: 1) Skript smaze vsechny ulozene prihlaseni do M365 aktualne prihlaseneho uzivatele. 2) Vytvori novy Outlook profil O365 a nastavi jej jako vychozi. 3) Otevre Outlook. Pokracovat? (y/n)"
 if ($confirm -notmatch "^[Yy]$") { exit }
 Stop-Process -Name "outlook" -Force -ErrorAction SilentlyContinue
