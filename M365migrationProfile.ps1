@@ -1,6 +1,7 @@
-$confirm = Read-Host "Upozorneni: 1) Skript smaze vsechny ulozene prihlaseni do M365 aktualne prihlaseneho uzivatele. 2) Vytvori novy Outlook profil O365 a nastavi jej jako vychozi. 3) Otevre Outlook. Pokracovat? (y/n)"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$confirm = Read-Host "Upozornění: 1) Skript smaze vsechny ulozene prihlaseni do M365 aktualne prihlaseneho uzivatele. 2) Vytvori novy Outlook profil O365 a nastavi jej jako vychozi. 3) Otevre Outlook. Pokracovat? (y/n)"
 if ($confirm -notmatch "^[Yy]$") { 
-    Write-Host "❌ Operace zrušena uživatelem." -ForegroundColor Yellow
+    Write-Host "Operace zrušena uživatelem." -ForegroundColor Yellow
     exit 
 }
 
@@ -12,9 +13,9 @@ function Try-Execute {
     )
     try {
         & $Command
-        Write-Host "✅ $Description - Úspěšně provedeno." -ForegroundColor Green
+        Write-Host "$Description - Úspěšně provedeno." -ForegroundColor Green
     } catch {
-        Write-Host "❌ $Description - Chyba: $_" -ForegroundColor Red
+        Write-Host "$Description - Chyba: $_" -ForegroundColor Red
     }
 }
 
@@ -37,4 +38,4 @@ Try-Execute "Nastavení O365 jako výchozího profilu" { Set-ItemProperty -Path 
 # Spuštění Outlooku
 Try-Execute "Spuštění Outlooku" { Start-Process -Name outlook }
 
-Write-Host "✅ Skript dokončen!" -ForegroundColor Cyan
+Write-Host "Skript dokončen!" -ForegroundColor Cyan
